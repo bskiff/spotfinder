@@ -4,7 +4,7 @@
 <h1>Welcome to Spotfinder</h1>
 
 <div id="message">Viewing all spots, input your address to filter to your local spots</div>
-<%= form_for @person do |f| %>
+<%= form_for @user_location do |f| %>
   <%= f.label :first_name %>
 <%= end %>
 

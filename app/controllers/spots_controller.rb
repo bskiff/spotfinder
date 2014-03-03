@@ -33,6 +33,9 @@ class SpotsController < ApplicationController
     end
     #@hash.merge(Gmaps4rails.build_markers()
 
+    #<%= form_for @person do |f| %>
+    #<%= f.label :first_name %>
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @spots }

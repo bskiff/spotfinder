@@ -21,11 +21,8 @@ class SpotsController < ApplicationController
     #marker.lng = request.location.longitude
     @hash = Gmaps4rails.build_markers(@spots) do |spot, marker|
       marker.lat spot.latitude
-      #marker.lat request.location.latitude
       marker.lng spot.longitude
-      #marker.lng request.location.longitude
       marker.infowindow spot.description
-      #marker.infowindow request.location.city
       if spot.location_type.eql? "bar" then
         marker.picture({ :url => "images/bar.png", :width => 36, :height => 36 })
       elsif spot.location_type.eql? "restaurant" then
