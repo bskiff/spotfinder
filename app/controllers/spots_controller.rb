@@ -1,0 +1,112 @@
+class SpotsController < ApplicationController
+  # GET /spots
+  # GET /spots.json
+  def index
+    @spots = Spot.all
+    #location_info = request.location
+    #@locations = Location.near([locatuib_info.latitude, location_info.longitude], radius_distance_
+    #@locations = Spot.near(request.location.latitude, request.location.longitude)
+
+#<% for spot in @locations %>
+#  <li><%= link_to spot.address, spot %> (<%= location.distance.round(2) %> miles)</li>
+#<% end %>
+
+# markers.push(handler.addMarkers([{
+#      lat: @here.lat,
+#      lng: @here.lng
+#    }]);
+
+    #@here = {:lat => request.location.latitude, :lng => request.location.longitude }
+    #marker.lat = request.location.latitude
+    #marker.lng = request.location.longitude
+    @hash = Gmaps4rails.build_markers(@spots) do |spot, marker|
+      marker.lat spot.latitude
+      marker.lng spot.longitude
+      marker.infowindow spot.description
+      if spot.location_type.eql? "bar" then
+        marker.picture({ :url => "images/bar.png", :width => 36, :height => 36 })
+      elsif spot.location_type.eql? "restaurant" then
+        marker.picture({ :url => "images/restaurant.png", :width => 36, :height => 36 })
+      else
+        marker.picture({ :url => "images/other.png", :width => 36, :height => 36 })
+      end
+    end
+    #@hash.merge(Gmaps4rails.build_markers()
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @spots }
+    end
+  end
+
+  # GET /spots/1
+  # GET /spots/1.json
+  def show
+    @spot = Spot.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @spot }
+    end
+  end
+
+  # GET /spots/new
+  # GET /spots/new.json
+  def new
+    @spot = Spot.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @spot }
+    end
+  end
+
+  # GET /spots/1/edit
+  def edit
+    @spot = Spot.find(params[:id])
+  end
+
+  # POST /spots
+  # POST /spots.json
+  def create
+    @spot = Spot.new(params[:spot])
+
+    respond_to do |format|
+      if @spot.save
+        format.html { redirect_to @spot, notice: 'Spot was successfully created.' }
+        format.json { render json: @spot, status: :created, location: @spot }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @spot.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /spots/1
+  # PUT /spots/1.json
+  def update
+    @spot = Spot.find(params[:id])
+
+    respond_to do |format|
+      if @spot.update_attributes(params[:spot])
+        format.html { redirect_to @spot, notice: 'Spot was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @spot.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /spots/1
+  # DELETE /spots/1.json
+  def destroy
+    @spot = Spot.find(params[:id])
+    @spot.destroy
+
+    respond_to do |format|
+      format.html { redirect_to spots_url }
+      format.json { head :no_content }
+    end
+  end
+end
