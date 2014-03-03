@@ -6,10 +6,10 @@ gem 'rails', '3.2.16'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #sqlite3 for local development
-#gem 'sqlite3'
+gem 'sqlite3'
 
 #postgreSQL needed for heroku deployment
-gem "pg"
+#gem "pg"
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -1,7 +1,7 @@
 Spotfinder::Application.routes.draw do
   resources :spots
 
-  root :to => "spots#index"
+  root :to => "spot#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
