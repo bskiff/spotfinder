@@ -1,6 +1,5 @@
-class Spot < ActiveRecord::Base attr_accessible :address, :description, :latitude, :location_type, :longitude, :title
-  #validates :address, presence: true
-  #validates :location_type, presence: true
+class Spot < ActiveRecord::Base
+  attr_accessible :address, :description, :latitude, :location_type, :longitude, :title
   geocoded_by :address
-  after_validation :geocode#, if => :address_changed
+  after_validation :geocode#, if => :address_changed?
 end
