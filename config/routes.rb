@@ -1,7 +1,11 @@
 Spotfinder::Application.routes.draw do
   resources :spots
 
+  resource :spots do
+    get "home"
+  end
 
+  root :to => 'spots#home'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

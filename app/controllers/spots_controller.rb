@@ -1,24 +1,8 @@
 class SpotsController < ApplicationController
   # GET /spots
   # GET /spots.json
-  def index
+  def home
     @spots = Spot.all
-    #location_info = request.location
-    #@locations = Location.near([locatuib_info.latitude, location_info.longitude], radius_distance_
-    #@locations = Spot.near(request.location.latitude, request.location.longitude)
-
-#<% for spot in @locations %>
-#  <li><%= link_to spot.address, spot %> (<%= location.distance.round(2) %> miles)</li>
-#<% end %>
-
-# markers.push(handler.addMarkers([{
-#      lat: @here.lat,
-#      lng: @here.lng
-#    }]);
-
-    #@here = {:lat => request.location.latitude, :lng => request.location.longitude }
-    #marker.lat = request.location.latitude
-    #marker.lng = request.location.longitude
     @hash = Gmaps4rails.build_markers(@spots) do |spot, marker|
       marker.lat spot.latitude
       marker.lng spot.longitude
@@ -31,10 +15,15 @@ class SpotsController < ApplicationController
         marker.picture({ :url => "images/other.png", :width => 36, :height => 36 })
       end
     end
-    #@hash.merge(Gmaps4rails.build_markers()
 
-    #<%= form_for @person do |f| %>
-    #<%= f.label :first_name %>
+    respond_to do |format|
+      format.html # home.html.erb
+      format.json { render json: @spots }
+    end
+  end
+
+  def index
+    @spots = Spot.all
 
     respond_to do |format|
       format.html # index.html.erb
